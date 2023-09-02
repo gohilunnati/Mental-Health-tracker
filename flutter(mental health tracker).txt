@@ -1,0 +1,590 @@
+// ignore_for_file: sort_child_properties_last
+
+import 'dart:html';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+
+void main() => runApp(MyApp());
+
+/// This Widget is the main application widget.
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Loginpage(),
+      ),
+
+      //home: Loginpage(),
+    );
+  }
+}
+
+class Loginpage extends StatefulWidget {
+  @override
+  _LoginpageState createState() => _LoginpageState();
+}
+
+class _LoginpageState extends State<Loginpage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  'MyCompanion',
+                  style: TextStyle(
+                      color: Color(0xff2196f3),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 30),
+                )),
+            Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+                child: const Text(
+                  'Sign in',
+                  style: TextStyle(fontSize: 20),
+                )),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: nameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'User Name',
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: TextField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                //forgot password screen
+              },
+              child: const Text(
+                'Forgot Password',
+              ),
+            ),
+            Container(
+                height: 50,
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: ElevatedButton(
+                  child: const Text('Login'),
+                  onPressed: () {
+                    //print(nameController.text);
+                    //print(passwordController.text);
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => Activity()));
+                  },
+                )),
+            Row(
+              children: <Widget>[
+                const Text('Does not have account?'),
+                TextButton(
+                  child: const Text(
+                    'Sign in',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    //signup screen
+                  },
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ],
+        ));
+  }
+}
+
+class Activity extends StatefulWidget {
+  @override
+  _ActivityState createState() => _ActivityState();
+}
+
+class _ActivityState extends State<Activity> {
+  @override
+  Widget build(BuildContext context) => DefaultTabController(
+      length: 2,
+      child: Scaffold(
+          backgroundColor: Color(0xffd6eefc),
+          appBar: AppBar(
+            title: Text('My_Companion'),
+            centerTitle: true,
+            bottom: TabBar(tabs: [
+              Tab(child: Text('Chat'), icon: Icon(Icons.directions_walk)),
+              Tab(
+                  child: Text('Activities'),
+                  icon: Icon(Icons.directions_bike_sharp)),
+            ]),
+          ),
+          body: TabBarView(
+            children: [
+              chatbot(),
+              activ(),
+            ],
+          )));
+}
+
+/*class chatbot extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+          children: <Widget>[
+            Container(
+              height: 50,
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: ElevatedButton(
+                child: const Text('chatbot'),
+                onPressed: () {
+                  print('Link to chatbot');
+                  //print(passwordController.text);
+                  //Navigator.of(context).push(
+                  //MaterialPageRoute(builder: (context) => Activity()));
+                },
+              ),
+            ),
+          ],
+        ));
+  }
+}*/
+
+/*class activ extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: ListView(children: <Widget>[
+          Container(
+            height: 50,
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: ElevatedButton(
+              child: const Text('Activities'),
+              onPressed: () {
+                print('Questions');
+                //Navigator.of(context).push(
+                //MaterialPageRoute(builder: (context) => Activity()));
+              },
+            ),
+          ),
+        ]));
+  }
+}*/
+
+class chatbot extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      home: new Scaffold(
+        backgroundColor: Color(0xffd6eefc),
+        appBar: new AppBar(
+          title: new Text('Chat with me, Click on My companion below'),
+        ),
+        body: new Center(
+          child: new InkWell(
+              child: new Text(
+                'My Companion',
+                style: TextStyle(fontSize: 24),
+              ),
+              onTap: () => launch(
+                  'https://www.kommunicate.io/livechat-demo?appId=31bb06f0b045608b2d99fdbc4649c13a7&botIds=my-campanion-0ra7g&assignee=my-campanion-0ra7g')),
+        ),
+      ),
+    );
+  }
+}
+
+/*class activ extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            body: Center(
+                child: SfLinearGauge(
+      minimum: 0,
+      maximum: 100,
+      orientation: LinearGaugeOrientation.horizontal,
+      markerPointers: [LinearShapePointer(value: 50)],
+    ))));
+  }
+}*/
+
+class activ extends StatefulWidget {
+  @override
+  _activi createState() => _activi();
+}
+
+class _activi extends State<activ> {
+  //double _currentSliderPrimaryValue = 0.2;
+  //double _currentSliderSecondaryValue = 0.5;
+  //double _value = 40.0;
+  int age = 50;
+  int aged = 50;
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            body: Center(
+                child: ListView(children: <Widget>[
+      /*Container(
+          constraints: BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: NetworkImage("https://picsum.photos/id/237/200/300"),
+                fit: BoxFit.cover),
+          )),*/
+
+      Container(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: TextField(
+          obscureText: true,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText:
+                'How Productive do you feel?\nRate between 0-100\n0-lowest and 100-highest',
+          ),
+        ),
+      ),
+      Slider(
+        label: "Select answer",
+        value: aged.toDouble(),
+        onChanged: (value) {
+          setState(() {
+            aged = value.toInt();
+          });
+        },
+        min: 0,
+        max: 100,
+      ),
+      Text(
+        "Productive: " + aged.toString() + "%",
+        style: const TextStyle(
+          fontSize: 18.0,
+        ),
+      ),
+      /*SfSlider(
+        value: _currentSliderPrimaryValue,
+        min: 0.0,
+        max: 10.0,
+        interval: 2,
+        showLabels: true,
+        showTicks: true,
+        //label: _currentSliderPrimaryValue.round().toString(),
+        onChanged: (dynamic newValue) {
+          setState(() {
+            _currentSliderPrimaryValue = newValue;
+          });
+        },
+      ),*/
+      Container(
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: TextField(
+          obscureText: true,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            labelText:
+                'How Energetic do you feel?\nRate between 0-100\n0-lowest and 100-highest',
+          ),
+        ),
+      ),
+      Slider(
+        label: "Select answer",
+        value: age.toDouble(),
+        onChanged: (value) {
+          setState(() {
+            age = value.toInt();
+          });
+        },
+        min: 0,
+        max: 100,
+      ),
+      Text(
+        "Energetic: " + age.toString() + "%",
+        style: const TextStyle(
+          fontSize: 18.0,
+        ),
+      ),
+      Column(
+        children: [
+          if (0 <= aged.toDouble() &&
+              aged.toDouble() <= 30 &&
+              0 <= age.toDouble() &&
+              age.toDouble() <= 30)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Games',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch('https://bubblespop.netlify.app/'),
+                ),
+              ),
+            )
+          else if (30 <= aged.toDouble() &&
+              aged.toDouble() <= 70 &&
+              0 <= age.toDouble() &&
+              age.toDouble() <= 30)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Music',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch(
+                      'https://open.spotify.com/album/5xjwIW6Oheee0PvzqSS9GZ'),
+                ),
+              ),
+            )
+          else if (0 <= aged.toDouble() &&
+              aged.toDouble() <= 30 &&
+              30 <= age.toDouble() &&
+              age.toDouble() <= 70)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Music',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch(
+                      'https://open.spotify.com/track/6AorXzdCoBnqN19AjKUaRX'),
+                ),
+              ),
+            )
+          else if (30 <= aged.toDouble() &&
+              aged.toDouble() <= 70 &&
+              30 <= age.toDouble() &&
+              age.toDouble() <= 70)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Yoga',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () =>
+                      launch('https://www.youtube.com/watch?v=e1TdD5vWeSM'),
+                ),
+              ),
+            )
+          else if (30 <= aged.toDouble() &&
+              aged.toDouble() <= 70 &&
+              70 <= age.toDouble() &&
+              age.toDouble() <= 100)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Yoga',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () =>
+                      launch('https://www.youtube.com/watch?v=i0K9r73abuc'),
+                ),
+              ),
+            )
+          else if (0 <= aged.toDouble() &&
+              aged.toDouble() <= 30 &&
+              70 <= age.toDouble() &&
+              age.toDouble() <= 100)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Games',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch(
+                      'https://www.memozor.com/other-memory-games/grid-of-pictures-memory-games/grid-of-pictures-for-kids-beach-to-remember'),
+                ),
+              ),
+            )
+          else if (70 <= aged.toDouble() &&
+              aged.toDouble() <= 100 &&
+              0 <= age.toDouble() &&
+              age.toDouble() <= 30)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Games',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () =>
+                      launch('https://www.mindgames.com/game/Simon+Says'),
+                ),
+              ),
+            )
+          else if (70 <= aged.toDouble() &&
+              aged.toDouble() <= 100 &&
+              30 <= age.toDouble() &&
+              age.toDouble() <= 70)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Music',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch(
+                      'https://www.youtube.com/watch?v=Y9iM7HF3nDw&vl=en'),
+                ),
+              ),
+            )
+          else if (70 <= aged.toDouble() &&
+              aged.toDouble() <= 100 &&
+              70 <= age.toDouble() &&
+              age.toDouble() <= 100)
+            Container(
+              height: 55,
+              color: Color(0xff2196f3),
+              margin: EdgeInsets.only(top: 30),
+              child: Center(
+                child: new InkWell(
+                  child: new Text(
+                    'Yoga',
+                    style: TextStyle(fontSize: 28, color: Colors.black),
+                  ),
+                  onTap: () => launch('https://youtu.be/Nw2oBIrQGLo'),
+                ),
+              ),
+            )
+
+          //Text("Value is greater than 50")
+        ],
+      ),
+      /* Container(
+                  height: 200,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('images/calm1.jpg'),
+                          fit: BoxFit.cover)))*/
+
+      /*Container(
+
+       
+
+        height: 50,
+        padding: const EdgeInsets.fromLTRB(12, 0, 11, 0),
+        child: ElevatedButton(
+            child: const Text('Next'),
+            onPressed: () {
+             
+            }),
+      )*/
+    ]))));
+  }
+}
+
+/*class Activita extends StatefulWidget {
+  @override
+  _ActivityStata createState() => _ActivityStata();
+}
+
+class _ActivityStata extends State<Activita> {
+  get appBar => null;
+  _activi myInstance = _activi();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            body: Center(
+                child: ListView(children: <Widget>[
+      Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(10),
+          child: const Text(
+            'MyCompanion',
+            style: TextStyle(
+                color: Color(0xff21f3ad),
+                fontWeight: FontWeight.w500,
+                fontSize: 30),
+          )),
+      Container(child: LayoutBuilder(builder: (context, constraints) {
+        if (myInstance.value() >= 10 && myInstance.aged.toInt() <= 50) {
+          return Text("Y is greater than or equal to 10");
+        } else {
+          return Text("Y is less than 10");
+        }
+      })
+          height: 50,
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          child: new InkWell(
+              child: new Text('Game'),
+              onTap: () => launch(
+                  'https://www.kommunicate.io/livechat-demo?appId=31bb06f0b045608b2d99fdbc4649c13a7&botIds=my-campanion-0ra7g&assignee=my-campanion-0ra7g')),
+        
+          )
+    ]))));
+  }
+}
+
+ SfSlider(
+          min: 0.0,
+          max: 10.0,
+          interval: 2,
+          showLabels: true,
+          showTicks: true,
+
+          value: _currentSliderSecondaryValue,
+          //label: _currentSliderSecondaryValue.round().toString(),
+          onChanged: (dynamic newValue) {
+            setState(() {
+              _currentSliderSecondaryValue = newValue;
+              
+            });
+          },
+        ),
+      ]))),
+    );
+  }
+}*/
